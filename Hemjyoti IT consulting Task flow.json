@@ -1,0 +1,84 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "1c78e4e4-9f9e-410e-80ac-69f18169d1be",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "610963c8-c5f3-45ab-9f3a-f59d49052bbc": {
+        "position": {
+          "x": 716.8,
+          "y": 207.2
+        }
+      },
+      "0d0a0a1e-6a7a-4095-9870-851cdddc1546": {
+        "position": {
+          "x": 441.6,
+          "y": 137.6
+        }
+      },
+      "1c78e4e4-9f9e-410e-80ac-69f18169d1be": {
+        "position": {
+          "x": 178.4,
+          "y": 59.2
+        },
+        "parameters": {
+          "QueueId": {
+            "useDynamic": true
+          }
+        },
+        "useDynamic": true
+      }
+    },
+    "Annotations": [],
+    "name": "Hemjyoti IT consulting Task flow",
+    "description": "",
+    "type": "contactFlow",
+    "status": "PUBLISHED",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {},
+      "Identifier": "610963c8-c5f3-45ab-9f3a-f59d49052bbc",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {},
+      "Identifier": "0d0a0a1e-6a7a-4095-9870-851cdddc1546",
+      "Type": "TransferContactToQueue",
+      "Transitions": {
+        "NextAction": "610963c8-c5f3-45ab-9f3a-f59d49052bbc",
+        "Errors": [
+          {
+            "NextAction": "610963c8-c5f3-45ab-9f3a-f59d49052bbc",
+            "ErrorType": "QueueAtCapacity"
+          },
+          {
+            "NextAction": "610963c8-c5f3-45ab-9f3a-f59d49052bbc",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "QueueId": "$.Queue.ARN"
+      },
+      "Identifier": "1c78e4e4-9f9e-410e-80ac-69f18169d1be",
+      "Type": "UpdateContactTargetQueue",
+      "Transitions": {
+        "NextAction": "0d0a0a1e-6a7a-4095-9870-851cdddc1546",
+        "Errors": [
+          {
+            "NextAction": "0d0a0a1e-6a7a-4095-9870-851cdddc1546",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "c3bdf59e-1220-440e-bcde-e159f9d637eb",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "0af0eb13-9278-4b9b-81ca-2f12e18041eb": {
+        "position": {
+          "x": 400.8,
+          "y": 96.8
+        }
+      },
+      "c3bdf59e-1220-440e-bcde-e159f9d637eb": {
+        "position": {
+          "x": 143.2,
+          "y": 64
+        }
+      }
+    },
+    "Annotations": [],
+    "name": "Hemjyoti IT consulting customer whisper flow",
+    "description": "",
+    "type": "customerWhisper",
+    "status": "PUBLISHED",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {},
+      "Identifier": "0af0eb13-9278-4b9b-81ca-2f12e18041eb",
+      "Type": "EndFlowExecution",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "Text": "You are being connected to the agent $.Agent.FirstName $.Agent.LastName"
+      },
+      "Identifier": "c3bdf59e-1220-440e-bcde-e159f9d637eb",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "0af0eb13-9278-4b9b-81ca-2f12e18041eb"
+      }
+    }
+  ]
+}

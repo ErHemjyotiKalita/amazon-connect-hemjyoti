@@ -1,0 +1,162 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "09be6870-5d47-4923-be63-6cae2d57f865",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "6f6fd7a9-2cd6-41ad-9b12-8d30e90f9de7": {
+        "position": {
+          "x": 933.6,
+          "y": 220
+        }
+      },
+      "f8bba1f0-3618-4966-be9e-213c525a2591": {
+        "position": {
+          "x": 691.2,
+          "y": 155.2
+        },
+        "parameters": {
+          "QueueId": {
+            "displayName": "Sales Queue"
+          }
+        },
+        "queue": {
+          "text": "Sales Queue"
+        }
+      },
+      "c312f79d-869d-46a8-be0d-3034b7c968b2": {
+        "position": {
+          "x": 1194.4,
+          "y": 396
+        }
+      },
+      "c1bf07fc-571e-46e9-9a86-be0e83689218": {
+        "position": {
+          "x": 436,
+          "y": 92
+        },
+        "parameters": {
+          "TimeLimitSeconds": {
+            "unit": 3600
+          }
+        },
+        "timeoutUnit": {
+          "display": "Hours",
+          "value": "hour"
+        }
+      },
+      "09be6870-5d47-4923-be63-6cae2d57f865": {
+        "position": {
+          "x": 191.2,
+          "y": 65.6
+        }
+      }
+    },
+    "Annotations": [],
+    "name": "Hemjyoti IT consulting chat disconnect flow",
+    "description": "",
+    "type": "contactFlow",
+    "status": "PUBLISHED",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {},
+      "Identifier": "6f6fd7a9-2cd6-41ad-9b12-8d30e90f9de7",
+      "Type": "TransferContactToQueue",
+      "Transitions": {
+        "NextAction": "c312f79d-869d-46a8-be0d-3034b7c968b2",
+        "Errors": [
+          {
+            "NextAction": "c312f79d-869d-46a8-be0d-3034b7c968b2",
+            "ErrorType": "QueueAtCapacity"
+          },
+          {
+            "NextAction": "c312f79d-869d-46a8-be0d-3034b7c968b2",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:342262165096:instance/a6bb2ede-0d28-4ee4-80a2-05a49d1fc5f3/queue/c9ec8870-a78d-4c86-ae25-941bf2b2c497"
+      },
+      "Identifier": "f8bba1f0-3618-4966-be9e-213c525a2591",
+      "Type": "UpdateContactTargetQueue",
+      "Transitions": {
+        "NextAction": "6f6fd7a9-2cd6-41ad-9b12-8d30e90f9de7",
+        "Errors": [
+          {
+            "NextAction": "c312f79d-869d-46a8-be0d-3034b7c968b2",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "c312f79d-869d-46a8-be0d-3034b7c968b2",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "TimeLimitSeconds": "14400",
+        "Events": [
+          "CustomerReturned"
+        ]
+      },
+      "Identifier": "c1bf07fc-571e-46e9-9a86-be0e83689218",
+      "Type": "Wait",
+      "Transitions": {
+        "NextAction": "c312f79d-869d-46a8-be0d-3034b7c968b2",
+        "Conditions": [
+          {
+            "NextAction": "f8bba1f0-3618-4966-be9e-213c525a2591",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "CustomerReturned"
+              ]
+            }
+          },
+          {
+            "NextAction": "c312f79d-869d-46a8-be0d-3034b7c968b2",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "WaitCompleted"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "c312f79d-869d-46a8-be0d-3034b7c968b2",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Sorry, the agent has disconnected the chat due to timeout. You may resume the chat by sending a message to this chat within he next 4 hours."
+      },
+      "Identifier": "09be6870-5d47-4923-be63-6cae2d57f865",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "c1bf07fc-571e-46e9-9a86-be0e83689218",
+        "Errors": [
+          {
+            "NextAction": "c312f79d-869d-46a8-be0d-3034b7c968b2",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}

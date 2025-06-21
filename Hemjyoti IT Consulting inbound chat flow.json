@@ -1,0 +1,165 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "f218aaa6-bf6c-4ad1-8cbb-7d4ea6964c14",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "634948d2-b5f9-413e-a72c-cb816a6f05ad": {
+        "position": {
+          "x": 1269.6,
+          "y": 305.6
+        }
+      },
+      "5cf5e26c-3a96-4ea0-8d9e-be05f5aa3ac2": {
+        "position": {
+          "x": 697.6,
+          "y": 78.4
+        }
+      },
+      "b128846a-f456-475e-9b78-0095cb394dff": {
+        "position": {
+          "x": 1017.6,
+          "y": 247.2
+        }
+      },
+      "9bbe35b8-9ff6-4ca0-b07c-99aba15dea7a": {
+        "position": {
+          "x": 435.2,
+          "y": 60
+        },
+        "parameters": {
+          "QueueId": {
+            "displayName": "Sales Queue"
+          }
+        },
+        "queue": {
+          "text": "Sales Queue"
+        }
+      },
+      "7c9c14ac-79db-4912-a4e2-59cb3e4f4bed": {
+        "position": {
+          "x": 179.2,
+          "y": 48.8
+        }
+      },
+      "f218aaa6-bf6c-4ad1-8cbb-7d4ea6964c14": {
+        "position": {
+          "x": 59.2,
+          "y": 254.4
+        },
+        "parameters": {
+          "EventHooks": {
+            "CustomerRemaining": {
+              "displayName": "Hemjyoti IT consulting chat disconnect flow"
+            }
+          }
+        },
+        "contactFlow": {
+          "text": "Hemjyoti IT consulting chat disconnect flow",
+          "id": "arn:aws:connect:us-east-1:342262165096:instance/a6bb2ede-0d28-4ee4-80a2-05a49d1fc5f3/contact-flow/751e47aa-ea37-4334-804b-5a4c84101d8e"
+        }
+      }
+    },
+    "Annotations": [],
+    "name": "Hemjyoti IT Consulting inbound chat flow",
+    "description": "",
+    "type": "contactFlow",
+    "status": "PUBLISHED",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {},
+      "Identifier": "634948d2-b5f9-413e-a72c-cb816a6f05ad",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {},
+      "Identifier": "5cf5e26c-3a96-4ea0-8d9e-be05f5aa3ac2",
+      "Type": "TransferContactToQueue",
+      "Transitions": {
+        "NextAction": "b128846a-f456-475e-9b78-0095cb394dff",
+        "Errors": [
+          {
+            "NextAction": "b128846a-f456-475e-9b78-0095cb394dff",
+            "ErrorType": "QueueAtCapacity"
+          },
+          {
+            "NextAction": "b128846a-f456-475e-9b78-0095cb394dff",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Sorry an error occurred, please contact us later."
+      },
+      "Identifier": "b128846a-f456-475e-9b78-0095cb394dff",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "634948d2-b5f9-413e-a72c-cb816a6f05ad",
+        "Errors": [
+          {
+            "NextAction": "634948d2-b5f9-413e-a72c-cb816a6f05ad",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:342262165096:instance/a6bb2ede-0d28-4ee4-80a2-05a49d1fc5f3/queue/c9ec8870-a78d-4c86-ae25-941bf2b2c497"
+      },
+      "Identifier": "9bbe35b8-9ff6-4ca0-b07c-99aba15dea7a",
+      "Type": "UpdateContactTargetQueue",
+      "Transitions": {
+        "NextAction": "5cf5e26c-3a96-4ea0-8d9e-be05f5aa3ac2",
+        "Errors": [
+          {
+            "NextAction": "b128846a-f456-475e-9b78-0095cb394dff",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Thank you for contacting Hemjyoti IT consulting chat support. Please wait while we connect you to a chat agent"
+      },
+      "Identifier": "7c9c14ac-79db-4912-a4e2-59cb3e4f4bed",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "9bbe35b8-9ff6-4ca0-b07c-99aba15dea7a",
+        "Errors": [
+          {
+            "NextAction": "b128846a-f456-475e-9b78-0095cb394dff",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "EventHooks": {
+          "CustomerRemaining": "arn:aws:connect:us-east-1:342262165096:instance/a6bb2ede-0d28-4ee4-80a2-05a49d1fc5f3/contact-flow/751e47aa-ea37-4334-804b-5a4c84101d8e"
+        }
+      },
+      "Identifier": "f218aaa6-bf6c-4ad1-8cbb-7d4ea6964c14",
+      "Type": "UpdateContactEventHooks",
+      "Transitions": {
+        "NextAction": "7c9c14ac-79db-4912-a4e2-59cb3e4f4bed",
+        "Errors": [
+          {
+            "NextAction": "634948d2-b5f9-413e-a72c-cb816a6f05ad",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}
